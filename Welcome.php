@@ -24,31 +24,62 @@ class Welcome extends CI_Controller {
 			$this->form_validation->set_rules('mobile','mobile','required|trim|is_unique[tbl_user.mobile]',array('is_unique'=>'this mobile is already exist'));
 			if($this->form_validation->run() === false){
 				$errors = validation_errors();
-				$data = array('success'=>false,'msg'=>$errors);
+				//$data = array('success'=>false,'msg'=>$errors);
+				echo json_encode(['error'=>$errors]);
 			}else{
 				extract($_POST);
-				print_r($_FILES["image"]["name"]);exit;
-				if(isset($_FILES["image"]["name"]))  
+				print_r($_POST);
+				//echo json_encode(['success'=>'Record added successfully.']);
+				print_r($_FILES["image_file"]["name"]);
+				/*if(isset($_FILES["image_file"]["name"]))  
 	           	{  
 	                $config['upload_path'] = './upload/';  
 	                $config['allowed_types'] = 'jpg|jpeg|png|gif';  
 	                $this->load->library('upload', $config);  
 	                if(!$this->upload->do_upload('image'))  
 	                {  
-	                     echo $this->upload->display_errors();  
+	                    echo $this->upload->display_errors();  
 	                }  
 	                else  
 	                {  
-	                     $data = $this->upload->data();  
-	                     echo '<img src="'.base_url().'upload/'.$data["file_name"].'" width="300" height="225" class="img-thumbnail" />';  
+	                    $data = $this->upload->data();  
+	                    echo '<img src="'.base_url().'upload/'.$data["file_name"].'" width="300" height="225" class="img-thumbnail" />';  
 	                }  
-	           }
-				print_r($_POST);
-
+	           }*/
 			}
-			echo json_encode($data);
 		}else{
 			echo "error";
 		}
 	}
+	/*function ajax_upload()  
+	{  
+	   	if(isset($_FILES["image_file"]["name"]))  
+	   	{  
+	        $config['upload_path'] = './upload/';  
+	        $config['allowed_types'] = 'jpg|jpeg|png|gif';  
+	        $this->load->library('upload', $config);  
+	        if(!$this->upload->do_upload('image_file'))  
+	        {  
+	            echo $this->upload->display_errors();  
+	        }  
+	        else  
+	        {  
+	            $data = $this->upload->data();  
+	            echo '<img src="'.base_url().'upload/'.$data["file_name"].'" width="300" height="225" class="img-thumbnail" />';  
+	        }  
+	   	}  
+	}
+	public function itemForm()
+   	{
+        $this->form_validation->set_rules('first_name', 'First Name', 'required');
+        $this->form_validation->set_rules('last_name', 'Last Name', 'required');$this->form_validation->set_rules('email','email','required|trim|is_unique[tbl_user.email]',array('is_unique'=>'this email is already exist'));
+        $this->form_validation->set_rules('mobile','mobile','required|trim|is_unique[tbl_user.mobile]',array('is_unique'=>'this mobile is already exist'));
+        $this->form_validation->set_rules('address', 'Address', 'required');
+        if ($this->form_validation->run() == FALSE){
+            $errors = validation_errors();
+            echo json_encode(['error'=>$errors]);
+        }else{
+           echo json_encode(['success'=>'Record added successfully.']);
+        }
+    }*/
 }
